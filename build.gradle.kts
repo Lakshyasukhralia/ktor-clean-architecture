@@ -38,3 +38,27 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koin_version")
     implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
 }
+
+ktor {
+    fatJar {
+        archiveFileName.set("my-fat.jar")
+    }
+
+    docker {
+        portMappings.set(listOf(
+            io.ktor.plugin.features.DockerPortMapping(
+                80,
+                8080,
+                io.ktor.plugin.features.DockerPortMappingProtocol.TCP
+            )
+        ))
+
+        externalRegistry.set(
+            io.ktor.plugin.features.DockerImageRegistry.dockerHub(
+                appName = provider { "ktor-app" },
+                username = providers.environmentVariable("DOCKER_HUB_USERNAME"),
+                password = providers.environmentVariable("DOCKER_HUB_PASSWORD")
+            )
+        )
+    }
+}
