@@ -45,6 +45,7 @@ ktor {
     }
 
     docker {
+
         portMappings.set(listOf(
             io.ktor.plugin.features.DockerPortMapping(
                 80,
@@ -60,5 +61,8 @@ ktor {
                 password = providers.environmentVariable("DOCKER_HUB_PASSWORD")
             )
         )
+
+        localImageName.set("my-ktor-image-1")
+        imageTag.set("alpha")
     }
 }
