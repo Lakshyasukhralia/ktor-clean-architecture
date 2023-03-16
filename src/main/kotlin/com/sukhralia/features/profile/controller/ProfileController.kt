@@ -8,8 +8,8 @@ import com.sukhralia.features.profile.domain.repository.ProfileRepository
 import com.sukhralia.security.hashing.HashingService
 import com.sukhralia.security.hashing.SaltedHash
 import com.sukhralia.security.token.TokenClaim
-import com.sukhralia.security.token.TokenConfig
 import com.sukhralia.security.token.TokenService
+import com.sukhralia.util.getTokenConfig
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -19,7 +19,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-fun Routing.profileRoutes(tokenConfig: TokenConfig) {
+fun Routing.profileRoutes() {
 
     val profileRepository by inject<ProfileRepository>()
     val hashingService by inject<HashingService>()
@@ -86,6 +86,7 @@ fun Routing.profileRoutes(tokenConfig: TokenConfig) {
                 return@post
             }
 
+            val tokenConfig = getTokenConfig(application.environment)
             val token = tokenService.generate(
                 config = tokenConfig,
                 TokenClaim(
