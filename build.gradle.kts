@@ -34,9 +34,12 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
-    // Koin for Ktor
+    //Koin for Ktor
     implementation("io.insert-koin:koin-ktor:$koin_version")
     implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
+
+    //Security
+    implementation("commons-codec:commons-codec:1.15")
 }
 
 ktor {

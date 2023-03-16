@@ -14,4 +14,8 @@ class ProfileLocalDataSourceImpl : ProfileLocalDataSource {
     override fun getAllUsers(): List<User> {
         return users
     }
+
+    override fun getUserByEmail(email: String): User? {
+        return users.firstOrNull { it.email == email }
+    }
 }
